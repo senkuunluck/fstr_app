@@ -5,7 +5,7 @@ from django.db import models
 
 class Users(models.Model):
     email = models.CharField(max_length=128, unique=True)
-    phone = models.IntegerField()
+    phone = models.CharField(max_length=11)
     fam = models.CharField(max_length=128)
     name = models.CharField(max_length=128)
     otc = models.CharField(max_length=128)
@@ -50,5 +50,5 @@ class Pereval(models.Model):
 
 class Images(models.Model):
     title = models.CharField(max_length=255)
-    data = models.ImageField(upload_to='media/')
+    data = models.URLField(blank=True)
     pereval = models.ForeignKey(Pereval, on_delete=models.CASCADE, related_name='images')
