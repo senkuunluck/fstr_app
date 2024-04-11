@@ -25,21 +25,22 @@ class LevelSerializer(ModelSerializer):
 class ImagesSerializer(ModelSerializer):
     class Meta:
         model = Images
-        fields = "__all__"
+        fields = ['data', 'title']
+
 
 class PerevalSerializer(ModelSerializer):
     user = UsersSerializer()
-    coords = CoordsSerializer()
+    coord_id = CoordsSerializer()
     level = LevelSerializer()
     images = ImagesSerializer(many=True)
 
     class Meta:
         model = Pereval
-        fields = ['beauty_title', 'title', 'other_titles', 'connect', 'user', 'coords', 'level', 'images']
+        fields = ['beauty_title', 'title', 'other_titles', 'connect', 'user', 'coord_id', 'level', 'images']
 
     def create(self, validated_data):
         user = validated_data.pop('user')
-        coords = validated_data.pop('coords')
+        coord_id = validated_data.pop('coord_id')
         level = validated_data.pop('level')
         images = validated_data.pop('images')
 
@@ -51,9 +52,9 @@ class PerevalSerializer(ModelSerializer):
         else:
             user = Users.objects.create(**user)
 
-        coords = Coords.objects.create(**coords)
+        coord_id = Coords.objects.create(**coord_id)
         level = Level.objects.create(**level)
-        new_pereval = Pereval.objects.create(**validated_data, user=user, level=level, coords=coords)
+        new_pereval = Pereval.objects.create(**validated_data, user=user, level=level, coord_id=coord_id)
 
         for img in images:
             data = img.pop('data')
