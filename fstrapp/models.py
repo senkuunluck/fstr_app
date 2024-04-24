@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 
 class Users(models.Model):
-    email = models.CharField(max_length=128, unique=True)
+    email = models.CharField(max_length=128)
     phone = models.CharField(max_length=11)
     fam = models.CharField(max_length=128)
     name = models.CharField(max_length=128)
