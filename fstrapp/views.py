@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from .models import *
 from .serializers import *
 
+
 class UserViewSet(viewsets.ModelViewSet):
     queryset = Users.objects.all()
     serializer_class = UsersSerializer
